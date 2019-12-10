@@ -1,0 +1,46 @@
+#GIT
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+git config --global alias.d difftool
+
+# KEY BINDINGS
+bindkey -v
+
+# NVM
+NODE_VERSION=12
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+nvm use $NODE_VERSION
+
+# EXPORTS
+export MYSQLBIN='/usr/local/bin/'
+export EDITOR="vim"
+export VDPAU_DRIVER=va_gl
+export ZSH_THEME="darkblood"
+export RIPGREP_CONFIG_PATH="/Users/paulwalker"
+
+# DATOPIAN
+export DATOPIAN_ROOT='~/Desktop/Datopian'
+alias dtp="cd $DATOPIAN_ROOT"
+alias dtpr="cd $DATOPIAN_ROOT/repos"
+alias ckan="cd $DATOPIAN_ROOT/repos/ckan"
+alias dtqt="cd $DATOPIAN_ROOT/repos/ckanext-querytool"
+alias sshdtp="ssh root@ckan-dev"
+alias cpnat="cp -r ~/Datopian/repos/ckan-national-grid/* ~/Datopian/repos/frontend-v2/themes/national-grid && cd ~/Datopian/repos/frontend-v2 && yarn start"
+
+# ALIASES
+alias ls="ls -a"
+alias lss="ls -al | grep grw"
+alias mysqlstart="/usr/local/Cellar/mysql/5.6.19/support-files/mysql.server start"
+alias rmswp='find ./ -type f -name "\.*sw[fghijklmnop]" -delete'
+alias aliases="compgen -a"
+alias rmlasthost="sed -i '' -e '$ d' /Users/paul/.ssh/known_hosts"
+alias chrome_no_sec='open -a Google\ Chrome --args --disable-web-security'
+alias tor="/home/pj/Apps/tor-browser_en-US/start-tor-browser.desktop"
+alias soulseek="screen ~/Apps/SoulseekQt-2016-1-17-64bit"
+alias g++="g++-8"
+alias pjw="ssh root@pjwalker.net"
+alias mongoup="sudo mongod --fork --logpath ~/log/mongodb.log"
+alias rgi="rg -i"
+alias crg="rg -g '!env/' -g '!i18n/'"
+alias dka="docker kill $(docker ps -q)"
