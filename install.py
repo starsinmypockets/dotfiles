@@ -7,25 +7,38 @@ import os, sys, json
 print "Using /usr/bin/python"
 print 'Installing Vim and dependencies'
 
-srcDir = '/Users/paulwalker/install'
-targetDir = '/Users/paulwalker/tmp/sandbox'
+srcDir = '/home/pj/repos/dotfiles'
+homeDir = '/home/pj'
 
+print "Creating vim directories"
 try:
-    os.makedirs(targetDir, 0755)
-    os.makedirs('%s/vim' % targetDir, 0755)
-    os.makedirs('%s/vim/bundle' % targetDir, 0755)
+    os.makedirs('%s/.vim' % homeDir, 0755)
+    os.makedirs('%s/.vim/bundle' % homeDir, 0755)
 except:
-    print "Failed creating vim directories"
-    pass
+    print('Failed to create vim directories', sys.exc_info())
 
+print "Copying dotfiles"
 try:
-    copy_tree('%s/dotfiles/' % srcDir, '%s/' % targetDir)
+    copy_tree('%s/dotfiles/' % srcDir, '%s/' % homeDir)
 except:
     print('Failed to copy dotfiles to home folder', sys.exc_info())
-    pass
 
-os.chdir('%s/vim/bundle' % targetDir)
-with open('%s/vim/vim_packages.json' % srcDir, 'r') as read_file:
-    vimRepos = json.load(read_file)
-    for repo in vimRepos:
-        os.system('git clone %s' % repo)
+print "Installing vim modules via git"
+try:
+    os.chdir('%s/.vim/bundle' % homeDir)
+    with open('%s/vim_packages.json' % srcDir, 'r') as read_file:
+        vimRepos = json.load(read_file)
+        for repo in vimRepos:
+            os.system('git clone %s' % repo)
+except:
+    print('Failed installing vim bundles from git', sys.exc_info())
+
+print "Installing zsh"
+try:
+    os.system('sudo apt-get update')
+    os.system('sudo apt install zsh')
+    os.system('sudo chsh -s /usr/bin/zsh root')
+    os.system('exit')
+    os.system('echo $SHELL')
+except:
+    print('Failed installing zsh', sys.exc_info())
